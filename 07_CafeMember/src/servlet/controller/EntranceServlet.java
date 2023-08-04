@@ -1,19 +1,15 @@
 package servlet.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlet.model.MemberDAO;
 import servlet.model.MemberVO;
 
 /*
@@ -25,13 +21,13 @@ import servlet.model.MemberVO;
 
 public class EntranceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServletContext context;
-	List<MemberVO> list = Collections.synchronizedList(new ArrayList<MemberVO>());
+//	private ServletContext context;
+//	List<MemberVO> list = Collections.synchronizedList(new ArrayList<MemberVO>());
 
-	public void init(ServletConfig config) throws ServletException {
-		context = config.getServletContext();
-		context.setAttribute("list", list);
-	}
+//	public void init(ServletConfig config) throws ServletException {
+//		context = config.getServletContext();
+//		context.setAttribute("list", list);
+//	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -46,12 +42,20 @@ public class EntranceServlet extends HttpServlet {
 		MemberVO vo = new MemberVO(name, age, addr);
 		System.out.println("2. MemberVO 생성..");
 		
-		list.add(vo);
-		System.out.println("3. MemberVO를 List에 저장");
+//		list.add(vo);
+//		System.out.println("3. MemberVO를 List에 저장");
 		
-		// 내비게이션
-		RequestDispatcher rdp = request.getRequestDispatcher("viewMember.jsp");
-		rdp.forward(request, response); // 이때 위에 설정한 페이지로 이동
+		// 3. DAO로 데이터 전송 (리스트에 저장하는거 대신에)
+		MemberDAO dao = new MemberDAO();
+		try {
+			dao.insertMember(vo);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// 4. 네비게이션 -> ViewMemberServlet으로 감
+//		RequestDispatcher rdp = request.getRequestDispatcher("viewMember.jsp");
+//		rdp.forward(request, response); // 이때 위에 설정한 페이지로 이동
 		
 //		PrintWriter out = response.getWriter();
 		
