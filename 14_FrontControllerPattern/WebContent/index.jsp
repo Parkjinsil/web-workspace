@@ -23,7 +23,7 @@
 			<a href="/front.do?command=allMember">전체회원보기</a>
 		</li>
 		<li><a href="/front.do?command=logout">로그아웃</a></li>
-		<li><a href="views/update.jsp">회원 정보 수정</a></li>
+		<li><a href="views/update.jspi">회원 정보 수정</a></li>
 		</c:otherwise>
 	</c:choose>
 	</ul>
