@@ -29,10 +29,12 @@ public class RegisterServlet extends HttpServlet {
 		dto.setName(name);
 		dto.setAddress(address);
 		
-		MemberDAO dao = new MemberDAO();
+//		MemberDAO dao = new MemberDAO();
+		
 		try {
 			//3. DAO와 연결
-			dao.registerMember(dto);
+//			dao.registerMember(dto);
+			MemberDAO.getInstance().registerMember(dto);
 			
 			// 4. 데이터 바인딩 - session
 			HttpSession session = request.getSession();
