@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import config.ServerInfo;
-import servlet.model.vo.MemberDTO;
+import servlet.model.vo.MemberVO;
 
 public class MemberDAO implements MemberDAOTemplate {
 
@@ -61,23 +61,23 @@ public class MemberDAO implements MemberDAOTemplate {
 	}
 
 	@Override
-	public void registerMember(MemberDTO dto) throws SQLException {
+	public void registerMember(MemberVO vo) throws SQLException {
 		Connection conn = getConnection();
 		
 		String query = "INSERT INTO member(id, password, name, address) VALUES(?, ?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
-		ps.setString(1, dto.getId());
-		ps.setString(2, dto.getPassword());
-		ps.setString(3, dto.getName());
-		ps.setString(4, dto.getAddress());
+		ps.setString(1, vo.getId());
+		ps.setString(2, vo.getPassword());
+		ps.setString(3, vo.getName());
+		ps.setString(4, vo.getAddress());
 		
 		ps.executeUpdate();
 		closeAll(ps, conn);
 	}
 
 	@Override
-	public MemberDTO login(String id, String password) throws SQLException {
+	public MemberVO login(String id, String password) throws SQLException {
 		Connection conn = getConnection();
 		
 		String query = "SELECT * FROM MEMBER WHERE id=? AND password=?";
@@ -87,20 +87,20 @@ public class MemberDAO implements MemberDAOTemplate {
 		ps.setString(2, password);
 		
 		ResultSet rs = ps.executeQuery();
-		MemberDTO dto = null;
+		MemberVO vo = null;
 		if(rs.next()) {
-			dto = new MemberDTO();
-			dto.setId(rs.getString("id"));
-			dto.setPassword(rs.getString("password"));
-			dto.setName(rs.getString("name"));
-			dto.setAddress(rs.getString("address"));
+			vo = new MemberVO();
+			vo.setId(rs.getString("id"));
+			vo.setPassword(rs.getString("password"));
+			vo.setName(rs.getString("name"));
+			vo.setAddress(rs.getString("address"));
 		}
 		closeAll(rs, ps, conn);
-		return dto;
+		return vo;
 	}
 
 	@Override
-	public MemberDTO findMyIdMemeber(String id) throws SQLException {
+	public MemberVO findMyIdMember(String id) throws SQLException {
 		Connection conn = getConnection();
 		
 		String query = "SELECT * FROM MEMBER WHERE id=?";
@@ -109,49 +109,49 @@ public class MemberDAO implements MemberDAOTemplate {
 		ps.setString(1, id);
 		
 		ResultSet rs = ps.executeQuery();
-		MemberDTO dto = null;
+		MemberVO vo = null;
 		if(rs.next()) {
-			dto = new MemberDTO();
-			dto.setId(rs.getString("id"));
-			dto.setPassword(rs.getString("password"));
-			dto.setName(rs.getString("name"));
-			dto.setAddress(rs.getString("address"));
+			vo = new MemberVO();
+			vo.setId(rs.getString("id"));
+			vo.setPassword(rs.getString("password"));
+			vo.setName(rs.getString("name"));
+			vo.setAddress(rs.getString("address"));
 		}
 		
 		closeAll(rs, ps, conn);
-		return dto;
+		return vo;
 	}
 
 	@Override
-	public ArrayList<MemberDTO> showAllMember() throws SQLException {
+	public ArrayList<MemberVO> showAllMember() throws SQLException {
 		Connection conn = getConnection();
 		
 		String query = "SELECT * FROM MEMBER";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ResultSet rs = ps.executeQuery();
-		ArrayList<MemberDTO> list = new ArrayList<>();
+		ArrayList<MemberVO> list = new ArrayList<>();
 		while(rs.next()) {
-			MemberDTO dto = new MemberDTO();
-			dto.setId(rs.getString("id"));
-			dto.setPassword(rs.getString("password"));
-			dto.setName(rs.getString("name"));
-			dto.setAddress(rs.getString("address"));
-			list.add(dto);
+			MemberVO vo = new MemberVO();
+			vo.setId(rs.getString("id"));
+			vo.setPassword(rs.getString("password"));
+			vo.setName(rs.getString("name"));
+			vo.setAddress(rs.getString("address"));
+			list.add(vo);
 		}
 		closeAll(rs, ps, conn);
 		return list;
 	}
 	
-	public void updateMember(MemberDTO dto) throws SQLException{
+	public void updateMember(MemberVO vo) throws SQLException{
 		Connection conn = getConnection();
 		
 		String query = "UPDATE member SET password=?, name=?, address=? where id=?";
 		PreparedStatement ps = conn.prepareStatement(query);
-		ps.setString(1, dto.getPassword());
-		ps.setString(2, dto.getName());
-		ps.setString(3, dto.getAddress());
-		ps.setString(4, dto.getId());
+		ps.setString(1, vo.getPassword());
+		ps.setString(2, vo.getName());
+		ps.setString(3, vo.getAddress());
+		ps.setString(4, vo.getId());
 		
 		ps.executeUpdate();
 		closeAll(ps, conn);
@@ -161,17 +161,17 @@ public class MemberDAO implements MemberDAOTemplate {
 	public static void main(String[] args) {
 		MemberDAO dao = new MemberDAO();
 		
-		MemberDTO dto = new MemberDTO();
-		dto.setId("user1");
-		dto.setPassword("user1");
-		dto.setName("박진실");
-		dto.setAddress("송파구");
+		MemberVO vo = new MemberVO();
+		vo.setId("user1");
+		vo.setPassword("user1");
+		vo.setName("박진실");
+		vo.setAddress("송파구");
 		
 		try {
-//			dao.registerMember(dto);
-			dto = dao.login("user1", "user1");
-			System.out.println("name : "+dto.getName());
-			System.out.println("address : "+dto.getAddress());
+//			dao.registerMember(vo);
+			vo = dao.login("user1", "user1");
+			System.out.println("name : "+vo.getName());
+			System.out.println("address : "+vo.getAddress());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

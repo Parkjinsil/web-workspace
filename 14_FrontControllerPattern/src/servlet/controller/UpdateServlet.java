@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import servlet.model.dao.MemberDAO;
 import servlet.model.vo.MemberDTO;
+import servlet.model.vo.MemberVO;
 
 @WebServlet("/UpdateServlet")
 public class UpdateServlet extends HttpServlet {
@@ -26,20 +27,20 @@ public class UpdateServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		
 		//2. 객체 생성
-		MemberDTO dto = new MemberDTO();
-		dto.setId(id);
-		dto.setPassword(password);
-		dto.setName(name);
-		dto.setAddress(address);
+		MemberVO vo = new MemberVO();
+		vo.setId(id);
+		vo.setPassword(password);
+		vo.setName(name);
+		vo.setAddress(address);
 		
 		try {
 			//3. DAO
-			MemberDAO.getInstance().updateMember(dto);
+			MemberDAO.getInstance().updateMember(vo);
 			
 			//4. 데이터 바인딩 - session
 			HttpSession session = request.getSession();
-			if(session.getAttribute("dto")!=null) {
-				session.setAttribute("dto", dto);
+			if(session.getAttribute("vo")!=null) {
+				session.setAttribute("vo", vo);
 			}
 			
 			//5. 네이게이션
