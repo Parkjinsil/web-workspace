@@ -3,9 +3,10 @@
 <configuration>
 	
 	<settings>
-		<setting name="jdbcTyperForNull" value="NULL"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	
+	<!-- 이 부분 중요! -->
 	<typeAliases>
 		<typeAlias type="model.vo.StudentVO" alias="Student"/> <!-- 별칭 만들어야 mapper에서 Student로 쓸 수 있음 -->
 		<typeAlias type="model.vo.DepartmentVO" alias="Department"/>

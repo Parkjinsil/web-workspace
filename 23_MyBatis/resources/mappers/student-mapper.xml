@@ -10,28 +10,31 @@
 <mapper namespace="studentMapper">
 
 	<resultMap type="Student" id="studentMap">
-		<id property="studentNo" column="studentno"/>
-		<result property="studentName" column="studentname"/>
-		<result property="studentAddress" column="studentaddress"/>
+		<id property="studentNo" column="student_no"/>
+		<result property="studentName" column="student_name"/>
+		<result property="studentAddress" column="student_address"/>
 		<association property="department" resultMap="departmentMap"/>
 	</resultMap>
 
 	<resultMap type="Department" id="departmentMap">
-		<id property="departmentNo" column="departmentno"/>
-		<result property="departmentName" column="departmentName"/>
+		<id property="departmentNo" column="department_no"/>
+		<result property="departmentName" column="department_name"/>
 		<result property="category" column="category"/>
 	</resultMap>
 	
-	<select id="showStudent" parameterType="String" resultMap="studentMap">
-		SELECT student_no, student_name, student_address, department_name, category
+	<select id="showStudent" resultMap="studentMap"  parameterType="String" > <!-- resultMap 안쓰면 resultType써야함 -->
+		SELECT student_no, student_name, student_address, department_no, department_name, category
 		FROM tb_student
-		JOIN tb_department using department_no
-		WHERE 
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		JOIN tb_department using (department_no)
+		<where>
 			<if test="word!=null">
-				
+				student_no like '%'||#{word}||'%'
+				OR student_name like '%'||#{word}||'%'
+				OR student_address like '%'||#{word}||'%'
+				OR department_name like '%'||#{word}||'%'
+				OR category like '%'||#{word}||'%'
 			</if>
-		</trim>
+		</where>
 	</select>
 </mapper>
 

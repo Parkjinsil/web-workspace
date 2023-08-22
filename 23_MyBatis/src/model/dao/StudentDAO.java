@@ -14,6 +14,7 @@ public class StudentDAO {
 		return dao;
 	}
 	
+	// 중요!
 	public List<StudentVO> showStudent(SqlSession sqlSession, String word) {
 		return sqlSession.selectList("studentMapper.showStudent", word);
 		
