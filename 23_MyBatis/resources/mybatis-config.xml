@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTyperForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="model.vo.StudentVO" alias="Student"/> <!-- 별칭 만들어야 mapper에서 Student로 쓸 수 있음 -->
+		<typeAlias type="model.vo.DepartmentVO" alias="Department"/>
+	</typeAliases>
+	
+	<environments default="development"> <!-- development? --> 
+		<environment id="development">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/> <!-- DB연결 -->
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="study"/>
+				<property name="password" value="study"/>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="mappers/student-mapper.xml"/>
+	</mappers>
+	
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,21 +1,17 @@
 package servlet.model;
 
 public class MemberVO {
-	
 	private String name;
 	private int age;
 	private String addr;
 	
-	public MemberVO() {
-	}
-
+	public MemberVO() {}
 	public MemberVO(String name, int age, String addr) {
-		super();
 		this.name = name;
 		this.age = age;
 		this.addr = addr;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -34,11 +30,9 @@ public class MemberVO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "MemberVO [name=" + name + ", age=" + age + ", addr=" + addr + "]";
 	}
-	
 }
-

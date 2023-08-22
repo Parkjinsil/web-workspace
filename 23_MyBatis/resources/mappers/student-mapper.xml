@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	resultMap에서 TB_STUDENT, TB_DEPARTMENT
+	id, result - 앞에서 배운 건 여기까지였다면
+	<association property="department" resultMap="departmentMap"/>
+	
+	showStudent
+ -->
+<mapper namespace="studentMapper">
+
+	<resultMap type="Student" id="studentMap">
+		<id property="studentNo" column="studentno"/>
+		<result property="studentName" column="studentname"/>
+		<result property="studentAddress" column="studentaddress"/>
+		<association property="department" resultMap="departmentMap"/>
+	</resultMap>
+
+	<resultMap type="Department" id="departmentMap">
+		<id property="departmentNo" column="departmentno"/>
+		<result property="departmentName" column="departmentName"/>
+		<result property="category" column="category"/>
+	</resultMap>
+	
+	<select id="showStudent" parameterType="String" resultMap="studentMap">
+		SELECT student_no, student_name, student_address, department_name, category
+		FROM tb_student
+		JOIN tb_department using department_no
+		WHERE 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="word!=null">
+				
+			</if>
+		</trim>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -36,7 +36,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ViewMemberServlet</servlet-name>
-    <url-pattern>/ViewMemberServlet</url-pattern>
+    <url-pattern>/view</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -46,7 +46,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchServlet</servlet-name>
-    <url-pattern>/SearchServlet</url-pattern>
+    <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <error-page>
   	<error-code>404</error-code>

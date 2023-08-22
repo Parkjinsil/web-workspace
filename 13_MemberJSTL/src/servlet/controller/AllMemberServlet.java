@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servlet.model.dao.MemberDAO;
+import servlet.model.service.MemberService;
 import servlet.model.vo.MemberDTO;
 
 @WebServlet("/AllMemberServlet")
@@ -22,7 +22,7 @@ public class AllMemberServlet extends HttpServlet {
 		
 		try {
 //			ArrayList<MemberDTO> list = dao.showAllMember(); // -> 싱글톤 만들기 전
-			ArrayList<MemberDTO> list = MemberDAO.getInstance().showAllMember(); // -> 싱글톤 만들면 객체 생성 따로 필요 x
+			ArrayList<MemberDTO> list = new MemberService().showAllMember(); // -> 싱글톤 만들면 객체 생성 따로 필요 x
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/allShow.jsp").forward(request, response);
 		} catch (SQLException e) {
