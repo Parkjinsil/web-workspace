@@ -21,7 +21,7 @@ public class Template {
 			InputStream stream = Resources.getResourceAsStream(resource);
 			SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
 			SqlSessionFactory factory = builder.build(stream);
-			session = factory.openSession(false); // false는 auto commit을 어쩌고
+			session = factory.openSession(false); // false는 auto commit종료
 			
 		} catch (IOException e) {
 			e.printStackTrace();
